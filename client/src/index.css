@@ -1,0 +1,10 @@
+#root {
+  position: relative;
+}
+
+#count {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  font-size: 30px;
+}
