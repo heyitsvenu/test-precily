@@ -4,61 +4,46 @@ import './style.css';
 import Box from './component/Box';
 import axios from 'axios';
 
+// const mock_data = [
+//   {
+//     id: 1,
+//     name: 'venu',
+//     age: '25',
+//   },
+//   {
+//     id: 2,
+//     name: 'hari',
+//     age: '20',
+//   },
+// ];
+
 function App() {
-  const [boxOneData, setBoxOneData] = useState([]);
-  const [boxTwoData, setBoxTwoData] = useState([]);
-  const [inputValue, setInputValue] = useState('');
+  const [data, setData] = useState();
 
-  const handleBoxOneChange = (e) => {
+  const handleBoxOneSubmit = (e) => {
     e.preventDefault();
-    setInputValue(e.target.value);
-  };
-
-  const handleBoxOneClick = (e) => {
-    e.preventDefault();
-    axios.post('/api/info/boxOne', { data: inputValue }).then((res) =>
-      setBoxOneData((prev) => {
-        return [...prev, res.data.data];
-      })
-    );
-  };
-
-  const handleBoxTwoChange = (e) => {
-    e.preventDefault();
-    setInputValue(e.target.value);
-  };
-
-  const handleBoxTwoClick = (e) => {
-    e.preventDefault();
-    axios.post('/api/info/boxTwo', { data: inputValue }).then((res) =>
-      setBoxTwoData((prev) => {
-        return [...prev, res.data.data];
-      })
-    );
+    let name = e.target.elements.name.value;
+    let age = e.target.elements.age.value;
+    axios.post('/api/info/boxOne', { name, age }).then((res) => {
+      setData((prev) => [...prev, res.data]);
+    });
+    e.target.elements.name.value = '';
+    e.target.elements.age.value = '';
   };
 
   useEffect(() => {
     let mount = true;
     axios.get('/api/info/boxOne').then((res) => {
-      let result = res.data.map((item) => item.data);
       if (mount) {
-        setBoxOneData(result);
-      }
-    });
-
-    axios.get('/api/info/boxTwo').then((res) => {
-      let result = res.data.map((item) => item.data);
-      if (mount) {
-        setBoxTwoData(result);
+        setData(res.data);
       }
     });
     return () => (mount = false);
   }, []);
 
   useEffect(() => {
-    console.log(boxOneData);
-    console.log(boxTwoData);
-  }, [boxOneData, boxTwoData]);
+    console.log(data);
+  }, [data]);
 
   return (
     <Split
@@ -67,20 +52,10 @@ function App() {
       className='main'
     >
       <Split className='flex' sizes={[40, 60]}>
-        <Box
-          data={boxOneData.join(' ')}
-          id='one'
-          handleClick={handleBoxOneClick}
-          handleChange={handleBoxOneChange}
-        />
-        <Box
-          data={boxTwoData.join(' ')}
-          id='two'
-          handleClick={handleBoxTwoClick}
-          handleChange={handleBoxTwoChange}
-        />
+        <Box id='one' handleSubmit={handleBoxOneSubmit} data={data} />
+        <Box id='two' />
       </Split>
-      <Box data='Box Three' id='three' />
+      <Box id='three' />
     </Split>
   );
 }

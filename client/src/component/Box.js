@@ -1,21 +1,48 @@
 import React from 'react';
 
-const Box = ({ data, id, handleClick, handleChange }) => {
+const Box = ({ id, handleSubmit, data }) => {
   return (
     <div style={{ backgroundColor: '#ddd' }} id={id} className='box'>
-      <div id='btn'>
+      <form onSubmit={handleSubmit} id='form'>
         <div>
-          <input type='text' onChange={handleChange} />
+          <div>
+            <label htmlFor='name'>Name: </label>
+            <input type='text' id='name' />
+          </div>
+          <div>
+            <label htmlFor='age'>Age: </label>
+            <input type='text' id='age' />
+          </div>
+          <div>
+            <button type='submit'>Submit</button>
+          </div>
         </div>
-        <div>
-          <button onClick={handleClick} type='button'>
-            Add
-          </button>
-          <button type='button'>Update</button>
-        </div>
-      </div>
+      </form>
       <div id='data'>
-        <p>{data}</p>
+        {data ? (
+          <table>
+            <thead>
+              <tr>
+                <th>name</th>
+                <th>age</th>
+                <th>edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((item) => {
+                return (
+                  <tr key={item['id']}>
+                    <td>{item['name']}</td>
+                    <td>{item['age']}</td>
+                    <td>
+                      <button>edit</button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        ) : null}
       </div>
     </div>
   );
