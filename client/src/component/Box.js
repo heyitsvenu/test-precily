@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Box = ({ id, handleSubmit, data }) => {
+const Box = ({ id, handleSubmit, data, edit, handleClick }) => {
   return (
     <div style={{ backgroundColor: '#ddd' }} id={id} className='box'>
       <form onSubmit={handleSubmit} id='form'>
@@ -31,11 +31,13 @@ const Box = ({ id, handleSubmit, data }) => {
             <tbody>
               {data.map((item) => {
                 return (
-                  <tr key={item['id']}>
-                    <td>{item['name']}</td>
+                  <tr key={item['_id']}>
+                    <td>{item.name}</td>
                     <td>{item['age']}</td>
                     <td>
-                      <button>edit</button>
+                      <button onClick={() => handleClick(item['_id'])}>
+                        edit
+                      </button>
                     </td>
                   </tr>
                 );
