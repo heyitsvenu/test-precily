@@ -9,6 +9,7 @@ function App() {
   const [data, setData] = useState();
   const [edit, setEdit] = useState(false);
   const [editForm, setEditForm] = useState(null);
+  const [count, setCount] = useState(0);
 
   // Handle Form Submit
   const handleBoxOneSubmit = (e) => {
@@ -107,6 +108,14 @@ function App() {
   }, []);
 
   useEffect(() => {
+    let mount = true;
+    axios.get('/api/stats').then((res) => {
+      setCount(res.data.count);
+    });
+    return () => (mount = false);
+  }, [data]);
+
+  useEffect(() => {
     console.log(data);
   }, [data]);
 
@@ -131,7 +140,7 @@ function App() {
         <Box id='three' showForm={false} />
       </Split>
       <div id='count'>
-        <span>Count: 10</span>
+        <span>Count: {count}</span>
       </div>
       {edit && editForm}
     </>
