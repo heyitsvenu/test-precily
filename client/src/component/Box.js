@@ -1,23 +1,25 @@
 import React from 'react';
 
-const Box = ({ id, handleSubmit, data, edit, handleClick }) => {
+const Box = ({ id, handleSubmit, data, handleClick, showForm }) => {
   return (
     <div style={{ backgroundColor: '#ddd' }} id={id} className='box'>
-      <form onSubmit={handleSubmit} id='form'>
-        <div>
+      {showForm ? (
+        <form onSubmit={handleSubmit} id='form'>
           <div>
-            <label htmlFor='name'>Name: </label>
-            <input type='text' id='name' />
+            <div>
+              <label htmlFor='name'>Name: </label>
+              <input type='text' id='name' />
+            </div>
+            <div>
+              <label htmlFor='age'>Age: </label>
+              <input type='text' id='age' />
+            </div>
+            <div>
+              <button type='submit'>Submit</button>
+            </div>
           </div>
-          <div>
-            <label htmlFor='age'>Age: </label>
-            <input type='text' id='age' />
-          </div>
-          <div>
-            <button type='submit'>Submit</button>
-          </div>
-        </div>
-      </form>
+        </form>
+      ) : null}
       <div id='data'>
         {data ? (
           <table>

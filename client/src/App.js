@@ -111,10 +111,11 @@ function App() {
             data={data}
             edit={edit}
             handleClick={handleClick}
+            showForm={true}
           />
-          <Box id='two' />
+          <Box id='two' showForm={false} />
         </Split>
-        <Box id='three' />
+        <Box id='three' showForm={false} />
       </Split>
       <div id='count'>
         <span>Count: 10</span>
