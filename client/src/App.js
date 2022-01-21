@@ -5,10 +5,12 @@ import Box from './component/Box';
 import axios from 'axios';
 
 function App() {
+  // state variables
   const [data, setData] = useState();
   const [edit, setEdit] = useState(false);
   const [editForm, setEditForm] = useState(null);
 
+  // Handle Form Submit
   const handleBoxOneSubmit = (e) => {
     e.preventDefault();
     let name = e.target.elements.name.value;
@@ -20,6 +22,7 @@ function App() {
     e.target.elements.age.value = '';
   };
 
+  // Handle Edit Form Submit
   const handleEditSubmit = (e, id) => {
     e.preventDefault();
     let name = e.target.elements.editName.value;
@@ -41,6 +44,7 @@ function App() {
     });
   };
 
+  // Handle Edit Button Click
   const handleClick = (id) => {
     setEdit(true);
     setEditForm(
@@ -91,6 +95,7 @@ function App() {
     );
   };
 
+  // Initial data setting
   useEffect(() => {
     let mount = true;
     axios.get('/api/info/boxOne').then((res) => {

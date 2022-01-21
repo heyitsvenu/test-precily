@@ -3,6 +3,7 @@ import React from 'react';
 const Box = ({ id, handleSubmit, data, handleClick, showForm }) => {
   return (
     <div style={{ backgroundColor: '#ddd' }} id={id} className='box'>
+      {/* Form */}
       {showForm ? (
         <form onSubmit={handleSubmit} id='form'>
           <div>
@@ -20,6 +21,8 @@ const Box = ({ id, handleSubmit, data, handleClick, showForm }) => {
           </div>
         </form>
       ) : null}
+
+      {/* Table */}
       <div id='data'>
         {data ? (
           <table>

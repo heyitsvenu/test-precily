@@ -1,5 +1,6 @@
 const BoxOne = require('../models/BoxOne');
 
+// Get Request API for Box One Data
 const getBoxOneData = async (req, res) => {
   try {
     const boxOneData = await BoxOne.find({});
@@ -9,6 +10,7 @@ const getBoxOneData = async (req, res) => {
   }
 };
 
+// Post Request API for Box One Data
 const createBoxOneData = async (req, res) => {
   try {
     const boxOneData = await BoxOne.create(req.body);
@@ -18,6 +20,7 @@ const createBoxOneData = async (req, res) => {
   }
 };
 
+// Patch Request API for Box One Data
 const updateBoxOneData = async (req, res) => {
   try {
     const { id } = req.params;

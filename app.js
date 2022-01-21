@@ -6,14 +6,17 @@ const boxOneRouter = require('./routes/boxOne');
 const boxTwoRouter = require('./routes/boxTwo');
 const path = require('path');
 
+// Middleware
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 app.use(express.json());
 
 app.use('/api/info', boxOneRouter);
 app.use('/api/info', boxTwoRouter);
 
+// Port Number
 const port = process.env.PORT || 5000;
 
+// Server listen
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
