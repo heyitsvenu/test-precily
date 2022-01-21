@@ -22,27 +22,31 @@ function App() {
 
   const handleEditSubmit = (e, id) => {
     e.preventDefault();
+    e.target.elements.editName.value =
+      data[data.findIndex((item) => item._id === id)].name;
+    e.target.elements.editAge.value =
+      data[data.findIndex((item) => item._id === id)].age;
     let name = e.target.elements.editName.value;
     let age = e.target.elements.editAge.value;
-    if (!name || !age) {
-      setEdit(false);
-    } else {
-      axios.patch(`/api/info/boxOne/${id}`, { name, age }).then((res) => {
-        let newData = data.map((item) => {
-          if (item._id === id) {
-            return {
-              ...item,
-              name: e.target.elements.editName.value,
-              age: e.target.elements.editAge.value,
-            };
-          } else {
-            return item;
-          }
-        });
-        setData(newData);
-        setEdit(false);
+    // if (!name || !age) {
+    //   setEdit(false);
+    // } else {
+    axios.patch(`/api/info/boxOne/${id}`, { name, age }).then((res) => {
+      let newData = data.map((item) => {
+        if (item._id === id) {
+          return {
+            ...item,
+            name: e.target.elements.editName.value,
+            age: e.target.elements.editAge.value,
+          };
+        } else {
+          return item;
+        }
       });
-    }
+      setData(newData);
+      setEdit(false);
+    });
+    // }
   };
 
   const handleClick = (id) => {
