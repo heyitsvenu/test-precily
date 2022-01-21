@@ -22,15 +22,8 @@ function App() {
 
   const handleEditSubmit = (e, id) => {
     e.preventDefault();
-    e.target.elements.editName.value =
-      data[data.findIndex((item) => item._id === id)].name;
-    e.target.elements.editAge.value =
-      data[data.findIndex((item) => item._id === id)].age;
     let name = e.target.elements.editName.value;
     let age = e.target.elements.editAge.value;
-    // if (!name || !age) {
-    //   setEdit(false);
-    // } else {
     axios.patch(`/api/info/boxOne/${id}`, { name, age }).then((res) => {
       let newData = data.map((item) => {
         if (item._id === id) {
@@ -46,7 +39,6 @@ function App() {
       setData(newData);
       setEdit(false);
     });
-    // }
   };
 
   const handleClick = (id) => {
@@ -60,11 +52,23 @@ function App() {
             </div>
             <div>
               <label htmlFor='editName'>Name: </label>
-              <input type='text' id='editName' />
+              <input
+                type='text'
+                id='editName'
+                defaultValue={
+                  data[data.findIndex((item) => item._id === id)].name
+                }
+              />
             </div>
             <div>
               <label htmlFor='editAge'>Age: </label>
-              <input type='text' id='editAge' />
+              <input
+                type='text'
+                id='editAge'
+                defaultValue={
+                  data[data.findIndex((item) => item._id === id)].age
+                }
+              />
             </div>
             <div>
               <button type='submit'>Edit</button>
